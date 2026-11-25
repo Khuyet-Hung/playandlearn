@@ -1,0 +1,40 @@
+{
+  "version": 2,
+  "skills": {
+    "brainstorming": {
+      "source": "obra/superpowers",
+      "commit": "22f0b463e7a5e579904dd6211a520321035526f7",
+      "sourceType": "github",
+      "skillPath": "skills/brainstorming/SKILL.md",
+      "computedHash": "a7424777b7f81e3eb9b4556d29fe233553736d8255780d3e1feea190fef61fef"
+    },
+    "design-mobile-apps": {
+      "source": "designed-by-ai/skills",
+      "commit": "03c20aec6dcedb5fabfb03dc37982eb52ef19ed6",
+      "sourceType": "github",
+      "skillPath": "skills/design-mobile-apps/SKILL.md",
+      "computedHash": "eec6dae3f26f8f154fe190a53387f0b2eab39aa120932d5c33af7f3284f04b10"
+    },
+    "executing-plans": {
+      "source": "obra/superpowers",
+      "commit": "22f0b463e7a5e579904dd6211a520321035526f7",
+      "sourceType": "github",
+      "skillPath": "skills/executing-plans/SKILL.md",
+      "computedHash": "58b364f6e3f64602c7cfd0b34ceaad9de95d41fe7e4b46b274843ba19fc01ccc"
+    },
+    "find-skills": {
+      "source": "vercel-labs/skills",
+      "commit": "57217cf86ba38148a57af9e90d14a4c049558330",
+      "sourceType": "github",
+      "skillPath": "skills/find-skills/SKILL.md",
+      "computedHash": "7bc223e2aafbdbf6e50ea243ba6ef67fe432bb069ab439fea0390795dac0bf7f"
+    },
+    "writing-plans": {
+      "source": "obra/superpowers",
+      "commit": "22f0b463e7a5e579904dd6211a520321035526f7",
+      "sourceType": "github",
+      "skillPath": "skills/writing-plans/SKILL.md",
+      "computedHash": "ef082ddb5354d736059397133b3682e8a0c85c57906affe47c9da354cbb7c91e"
+    }
+  }
+}

@@ -1,0 +1,75 @@
+// Developer-only visual inspection. No golden baselines or production dependency.
+import 'dart:io';
+import 'dart:ui' as ui;
+
+import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:material_ui/material_ui.dart';
+
+import '../test/helpers/pump_preview_app.dart';
+
+void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+  setUpAll(() async {
+    final fontPath =
+        Platform.environment['PREVIEW_FONT_DIR'] ??
+        '.tooling/flutter/bin/cache/artifacts/material_fonts';
+    final loader = FontLoader('Roboto');
+    for (final name in [
+      'roboto-regular.ttf',
+      'roboto-bold.ttf',
+      'roboto-black.ttf',
+    ]) {
+      loader.addFont(
+        File('$fontPath/$name').readAsBytes().then(ByteData.sublistView),
+      );
+    }
+    await loader.load();
+    final icons = FontLoader('MaterialIcons')
+      ..addFont(
+        File('$fontPath/materialicons-regular.otf')
+            .readAsBytes()
+            .then(ByteData.sublistView),
+      );
+    await icons.load();
+  });
+  testWidgets('capture mobile preview screens for visual inspection', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(390, 844);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    await pumpPreviewApp(tester);
+    Future<void> capture(String name) async {
+      await tester.pumpAndSettle();
+      final boundary = tester.renderObject<RenderRepaintBoundary>(
+        find.byType(RepaintBoundary).first,
+      );
+      await tester.runAsync(() async {
+        final image = await boundary.toImage();
+        final bytes = await image.toByteData(format: ui.ImageByteFormat.png);
+        final file = File('docs/preview/$name.png');
+        await file.parent.create(recursive: true);
+        await file.writeAsBytes(bytes!.buffer.asUint8List());
+        image.dispose();
+      });
+    }
+
+    await capture('home');
+    await tester.tap(find.byKey(const ValueKey('tab-1')));
+    await tester.pumpAndSettle();
+    await capture('skills');
+    await tester.tap(find.byKey(const ValueKey('catalog-listening')));
+    await tester.pumpAndSettle();
+    await capture('skill-detail');
+    await tester.tap(find.byTooltip('Quay lại'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const ValueKey('tab-2')));
+    await tester.pumpAndSettle();
+    await capture('profile');
+    await openSettings(tester);
+    await capture('settings');
+  });
+}

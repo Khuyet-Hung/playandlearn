@@ -1,0 +1,16 @@
+.tooling/
+.superpowers/
+.dart_tool/
+.flutter-plugins-dependencies
+.packages
+build/
+coverage/
+*.iml
+.idea/
+android/local.properties
+android/.gradle/
+android/.kotlin/
+ios/Pods/
+ios/.symlinks/
+ios/Flutter/Generated.xcconfig
+ios/Flutter/flutter_export_environment.sh
