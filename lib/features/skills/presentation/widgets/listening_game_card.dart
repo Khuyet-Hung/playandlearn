@@ -79,7 +79,7 @@ class ListeningGameCard extends StatelessWidget {
                         number.toString().padLeft(2, '0'),
                         style: const TextStyle(
                           fontSize: 19,
-                          fontWeight: FontWeight.w900,
+                          fontWeight: FontWeight.w800,
                         ),
                       ),
                     ),
@@ -106,10 +106,8 @@ class ListeningGameCard extends StatelessWidget {
                     children: [
                       Text(
                         game.title,
-                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                          fontWeight: FontWeight.w900,
-                          letterSpacing: -.6,
-                        ),
+                        style: Theme.of(context).textTheme.titleLarge
+                            ?.copyWith(fontWeight: FontWeight.w800),
                       ),
                       const SizedBox(height: 3),
                       Text(

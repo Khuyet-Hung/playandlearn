@@ -8,10 +8,12 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:material_ui/material_ui.dart';
 
 import '../test/helpers/pump_preview_app.dart';
+import '../test/helpers/load_app_fonts.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   setUpAll(() async {
+    await loadAppFonts();
     final fontPath =
         Platform.environment['PREVIEW_FONT_DIR'] ??
         '.tooling/flutter/bin/cache/artifacts/material_fonts';

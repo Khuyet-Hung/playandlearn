@@ -42,7 +42,7 @@ class ProfileScreen extends StatelessWidget {
                   padding: EdgeInsets.all(10),
                   child: Text(
                     'N',
-                    style: TextStyle(fontSize: 38, fontWeight: FontWeight.w900),
+                    style: TextStyle(fontSize: 38, fontWeight: FontWeight.w800),
                   ),
                 ),
               ),

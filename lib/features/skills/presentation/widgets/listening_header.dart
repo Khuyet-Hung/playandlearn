@@ -47,8 +47,8 @@ class ListeningHeader extends StatelessWidget {
                 style: const TextStyle(
                   color: Colors.white,
                   fontSize: 16,
-                  height: 1.1,
-                  fontWeight: FontWeight.w900,
+                  height: 1.25,
+                  fontWeight: FontWeight.w800,
                 ),
               ),
             ),
@@ -82,7 +82,7 @@ class ListeningHeader extends StatelessWidget {
                     Text(
                       '0',
                       style: TextStyle(
-                        fontWeight: FontWeight.w900,
+                        fontWeight: FontWeight.w800,
                         fontSize: 20,
                       ),
                     ),
@@ -144,9 +144,10 @@ class ListeningHeader extends StatelessWidget {
                   Text(
                     context.l10n.listeningGreeting,
                     style: const TextStyle(
+                      fontFamily: 'Baloo2',
                       fontSize: 21,
-                      fontWeight: FontWeight.w900,
-                      height: 1.2,
+                      fontWeight: FontWeight.w700,
+                      height: 1.25,
                     ),
                   ),
                   const SizedBox(height: 6),

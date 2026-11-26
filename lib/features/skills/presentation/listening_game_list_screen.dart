@@ -32,7 +32,7 @@ class ListeningGameListScreen extends StatelessWidget {
                 Text(
                   context.l10n.listeningFriend,
                   style: Theme.of(context).textTheme.headlineLarge
-                      ?.copyWith(fontSize: 32, letterSpacing: -1),
+                      ?.copyWith(fontSize: 32),
                 ),
                 const SizedBox(height: 5),
                 Text(

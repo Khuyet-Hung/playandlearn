@@ -148,11 +148,12 @@ class _FriendCard extends StatelessWidget {
                         Text(
                           names[index],
                           style: TextStyle(
+                            fontFamily: 'Baloo2',
                             color: foreground,
                             fontSize: 20,
-                            height: 1.15,
-                            fontWeight: FontWeight.w900,
-                            letterSpacing: -0.4,
+                            height: 1.25,
+                            fontWeight: FontWeight.w800,
+                            letterSpacing: 0,
                           ),
                         ),
                         const SizedBox(height: 3),

@@ -36,7 +36,7 @@ class HomeHeader extends StatelessWidget {
                     fontSize: 17,
                     fontWeight: FontWeight.w800,
                     height: 1.05,
-                    letterSpacing: -0.5,
+                    letterSpacing: 0,
                   ),
                 ),
               ),
@@ -72,7 +72,7 @@ class HomeHeader extends StatelessWidget {
                             '$streakDays',
                             style: const TextStyle(
                               fontSize: 19,
-                              fontWeight: FontWeight.w900,
+                              fontWeight: FontWeight.w800,
                               height: 1.1,
                             ),
                           ),
@@ -123,9 +123,10 @@ class HomeHeader extends StatelessWidget {
                     Text(
                       context.l10n.homeGreeting,
                       style: const TextStyle(
+                        fontFamily: 'Baloo2',
                         fontSize: 16,
-                        height: 1.2,
-                        fontWeight: FontWeight.w900,
+                        height: 1.25,
+                        fontWeight: FontWeight.w700,
                       ),
                     ),
                     const SizedBox(height: 5),

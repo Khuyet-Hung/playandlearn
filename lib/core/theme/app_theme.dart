@@ -6,6 +6,7 @@ abstract final class AppTheme {
   static ThemeData get light {
     final base = ThemeData(
       useMaterial3: true,
+      fontFamily: 'Nunito',
       scaffoldBackgroundColor: AppColors.background,
       colorScheme:
           ColorScheme.fromSeed(
@@ -23,33 +24,46 @@ abstract final class AppTheme {
       textTheme: base.textTheme
           .copyWith(
             headlineLarge: base.textTheme.headlineLarge?.copyWith(
+              fontFamily: 'Baloo2',
               fontSize: 38,
-              fontWeight: FontWeight.w900,
-              height: 1.1,
-              letterSpacing: -1.5,
-            ),
-            headlineMedium: base.textTheme.headlineMedium?.copyWith(
-              fontSize: 30,
-              fontWeight: FontWeight.w900,
-              height: 1.15,
-              letterSpacing: -0.8,
-            ),
-            titleLarge: base.textTheme.titleLarge?.copyWith(
-              fontSize: 22,
               fontWeight: FontWeight.w800,
               height: 1.2,
+              letterSpacing: 0,
+            ),
+            headlineMedium: base.textTheme.headlineMedium?.copyWith(
+              fontFamily: 'Baloo2',
+              fontSize: 30,
+              fontWeight: FontWeight.w800,
+              height: 1.2,
+              letterSpacing: 0,
+            ),
+            headlineSmall: base.textTheme.headlineSmall?.copyWith(
+              fontFamily: 'Baloo2',
+              fontWeight: FontWeight.w700,
+              height: 1.25,
+              letterSpacing: 0,
+            ),
+            titleLarge: base.textTheme.titleLarge?.copyWith(
+              fontFamily: 'Baloo2',
+              fontSize: 22,
+              fontWeight: FontWeight.w800,
+              height: 1.25,
+              letterSpacing: 0,
             ),
             titleMedium: base.textTheme.titleMedium?.copyWith(
+              fontFamily: 'Baloo2',
               fontSize: 17,
               fontWeight: FontWeight.w800,
               height: 1.3,
             ),
             bodyLarge: base.textTheme.bodyLarge?.copyWith(
               fontSize: 16,
+              fontWeight: FontWeight.w500,
               height: 1.5,
             ),
             bodyMedium: base.textTheme.bodyMedium?.copyWith(
               fontSize: 14,
+              fontWeight: FontWeight.w500,
               height: 1.5,
             ),
             labelLarge: base.textTheme.labelLarge?.copyWith(
@@ -62,7 +76,12 @@ abstract final class AppTheme {
       dividerColor: AppColors.ink,
       snackBarTheme: const SnackBarThemeData(
         backgroundColor: AppColors.ink,
-        contentTextStyle: TextStyle(color: AppColors.surface, fontSize: 15),
+        contentTextStyle: TextStyle(
+          fontFamily: 'Nunito',
+          color: AppColors.surface,
+          fontSize: 15,
+          fontWeight: FontWeight.w500,
+        ),
         behavior: SnackBarBehavior.floating,
       ),
       appBarTheme: const AppBarTheme(
