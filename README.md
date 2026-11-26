@@ -34,6 +34,20 @@ hoặc dùng Flutter trên PATH. Cache package nằm trong `.tooling/pub-cache`.
 Identifier `dev.playandlearn.play_and_learn` là placeholder phát triển, cần
 chọn identifier riêng trước khi phát hành. Chưa cấu hình ký bản phát hành.
 
+### Chạy trên Chrome hoặc Edge
+
+Dự án có cấu hình web trong `web/`. Chạy từ thư mục gốc:
+
+```powershell
+.\scripts\flutter.cmd run -d chrome
+# Hoặc:
+.\scripts\flutter.cmd run -d edge
+```
+
+Build bản web bằng `.\scripts\flutter.cmd build web`; kết quả nằm trong
+`build/web/`. Test trên trình duyệt phục vụ kiểm tra giao diện và tương tác;
+các chức năng riêng của thiết bị vẫn cần kiểm tra trên Android/iOS.
+
 ## Cấu trúc và trách nhiệm
 
 ```text
