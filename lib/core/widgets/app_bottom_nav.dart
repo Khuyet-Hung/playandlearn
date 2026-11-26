@@ -13,9 +13,13 @@ class AppBottomNav extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-    decoration: const BoxDecoration(
-      color: AppColors.surface,
-      border: Border(top: BorderSide(color: AppColors.ink, width: 2.5)),
+    margin: const EdgeInsets.fromLTRB(14, 6, 14, 12),
+    decoration: BoxDecoration(
+      color: AppColors.ink,
+      borderRadius: BorderRadius.circular(30),
+      boxShadow: const [
+        BoxShadow(color: AppColors.berry, offset: Offset(0, 4)),
+      ],
     ),
     child: SafeArea(
       top: false,
@@ -34,12 +38,12 @@ class AppBottomNav extends StatelessWidget {
                     child: Material(
                       color: selectedIndex == i
                           ? AppColors.yellow
-                          : AppColors.surface,
+                          : AppColors.ink,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(14),
                         side: BorderSide(
                           color: selectedIndex == i
-                              ? AppColors.ink
+                              ? AppColors.surface
                               : Colors.transparent,
                           width: 2,
                         ),
@@ -60,18 +64,26 @@ class AppBottomNav extends StatelessWidget {
                               children: [
                                 Icon(
                                   [
-                                    Icons.home_rounded,
+                                    Icons.home_outlined,
                                     Icons.grid_view_rounded,
                                     Icons.person_outline_rounded,
                                   ][i],
                                   size: 25,
+                                  color: selectedIndex == i
+                                      ? AppColors.ink
+                                      : AppColors.surface,
                                 ),
                                 const SizedBox(height: 4),
                                 Text(
                                   ['Trang chủ', 'Kỹ năng', 'Hồ sơ'][i],
                                   textAlign: TextAlign.center,
                                   style: Theme.of(context).textTheme.labelSmall
-                                      ?.copyWith(fontWeight: FontWeight.w800),
+                                      ?.copyWith(
+                                        fontWeight: FontWeight.w800,
+                                        color: selectedIndex == i
+                                            ? AppColors.ink
+                                            : AppColors.surface,
+                                      ),
                                 ),
                               ],
                             ),

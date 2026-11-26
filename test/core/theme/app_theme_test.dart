@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:play_and_learn/core/theme/app_theme.dart';
+import 'package:play_and_learn/core/theme/app_colors.dart';
 
 void main() {
   testWidgets('custom typography stays readable on the light surface', (
@@ -29,7 +30,7 @@ void main() {
         find.descendant(of: find.text(text), matching: find.byType(RichText)),
       );
       final style = (paragraph.text as TextSpan).style!;
-      expect(style.color, const Color(0xFF191919));
+      expect(style.color, AppColors.ink);
     }
   });
 }
