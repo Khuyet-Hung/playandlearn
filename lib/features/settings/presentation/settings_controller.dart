@@ -1,5 +1,6 @@
-import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
 
+import '../../../l10n/app_localizations.dart';
 import '../data/settings_repository.dart';
 
 class SettingsController extends ChangeNotifier {
@@ -10,12 +11,20 @@ class SettingsController extends ChangeNotifier {
   bool _isLoading = false;
   bool _disposed = false;
   bool? _pendingValue;
-  String? _errorMessage;
+  String? _pendingLanguageCode;
+  String _languageCode = 'vi';
+  bool? _writeError;
 
   bool get reduceMotion => _reduceMotion;
   bool get isSaving => _isSaving;
   bool get isLoading => _isLoading;
-  String? get errorMessage => _errorMessage;
+  Locale get locale => Locale(_languageCode);
+  String? get errorMessage {
+    final error = _writeError;
+    if (error == null) return null;
+    final strings = lookupAppLocalizations(locale);
+    return error ? strings.settingsWriteError : strings.settingsReadError;
+  }
 
   Future<void> load() async {
     if (_disposed || _isLoading || _isSaving) return;
@@ -23,12 +32,14 @@ class SettingsController extends ChangeNotifier {
     _notify();
     try {
       final value = await repository.readReduceMotion();
+      final language = await repository.readLanguageCode();
       if (_disposed) return;
       _reduceMotion = value;
-      _errorMessage = null;
+      _languageCode = language == 'en' ? 'en' : 'vi';
+      _writeError = null;
     } catch (_) {
       if (_disposed) return;
-      _errorMessage = 'Chưa đọc được cài đặt. Bạn có thể thử lại.';
+      _writeError = false;
     } finally {
       _isLoading = false;
       _notify();
@@ -38,6 +49,7 @@ class SettingsController extends ChangeNotifier {
   Future<void> setReduceMotion(bool value) async {
     if (_disposed || _isSaving || _isLoading) return;
     _pendingValue = value;
+    _pendingLanguageCode = null;
     _isSaving = true;
     _notify();
     try {
@@ -45,10 +57,36 @@ class SettingsController extends ChangeNotifier {
       if (_disposed) return;
       _reduceMotion = value;
       _pendingValue = null;
-      _errorMessage = null;
+      _writeError = null;
     } catch (_) {
       if (_disposed) return;
-      _errorMessage = 'Chưa lưu được thay đổi. Bạn có thể thử lại.';
+      _writeError = true;
+    } finally {
+      _isSaving = false;
+      _notify();
+    }
+  }
+
+  Future<void> setLanguageCode(String value) async {
+    if (_disposed ||
+        _isSaving ||
+        _isLoading ||
+        (value != 'vi' && value != 'en')) {
+      return;
+    }
+    _pendingLanguageCode = value;
+    _pendingValue = null;
+    _isSaving = true;
+    _notify();
+    try {
+      await repository.writeLanguageCode(value);
+      if (_disposed) return;
+      _languageCode = value;
+      _pendingLanguageCode = null;
+      _writeError = null;
+    } catch (_) {
+      if (_disposed) return;
+      _writeError = true;
     } finally {
       _isSaving = false;
       _notify();
@@ -56,6 +94,8 @@ class SettingsController extends ChangeNotifier {
   }
 
   Future<void> retry() {
+    final language = _pendingLanguageCode;
+    if (language != null) return setLanguageCode(language);
     final value = _pendingValue;
     return value == null ? load() : setReduceMotion(value);
   }

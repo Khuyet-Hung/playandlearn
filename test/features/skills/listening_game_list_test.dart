@@ -21,6 +21,9 @@ void main() {
         addTearDown(tester.view.resetDevicePixelRatio);
         addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
         await pumpPreviewApp(tester);
+        if (scale == 2) {
+          await reveal(tester, find.byKey(const ValueKey('home-listening')));
+        }
         await tester.tap(find.byKey(const ValueKey('home-listening')));
         await tester.pumpAndSettle();
         expect(find.text('Tai thính đã sẵn sàng?'), findsOneWidget);

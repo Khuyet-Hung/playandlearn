@@ -1,3 +1,5 @@
+import '../../../l10n/l10n.dart';
+
 import 'package:material_ui/material_ui.dart';
 
 import '../../../core/theme/app_tokens.dart';
@@ -15,12 +17,12 @@ class SkillsScreen extends StatelessWidget {
     key: const PageStorageKey('skills-scroll'),
     padding: AppTokens.pagePadding,
     children: [
-      const AppPageHeader(
-        title: 'Chơi theo cách\ncủa bạn.',
-        subtitle: 'Bốn kỹ năng. Nhiều hành trình để khám phá.',
+      AppPageHeader(
+        title: context.l10n.skillsHeading,
+        subtitle: context.l10n.skillsSubtitle,
       ),
       const SizedBox(height: 28),
-      for (final skill in PreviewCatalog.skills) ...[
+      for (final skill in PreviewCatalog.skillsFor(context.l10n)) ...[
         SkillCard(
           key: ValueKey('catalog-${skill.id.name}'),
           skill: skill,

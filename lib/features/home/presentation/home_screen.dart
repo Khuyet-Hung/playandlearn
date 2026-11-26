@@ -1,21 +1,32 @@
+import '../../../l10n/l10n.dart';
+
 import 'package:material_ui/material_ui.dart';
 
 import '../../../core/theme/app_colors.dart';
 import '../../../core/widgets/app_pressable.dart';
 import '../../skills/data/preview_catalog.dart';
 import '../../skills/domain/skill.dart';
+import '../../settings/presentation/settings_controller.dart';
 import 'widgets/character_avatar.dart';
 import 'widgets/home_header.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key, required this.onOpenSkill});
+  const HomeScreen({
+    super.key,
+    required this.onOpenSkill,
+    required this.settings,
+  });
   final ValueChanged<Skill> onOpenSkill;
+  final SettingsController settings;
 
   @override
   Widget build(BuildContext context) => LayoutBuilder(
     builder: (context, constraints) {
+      final skills = PreviewCatalog.skillsFor(context.l10n);
       final diameter = constraints.maxWidth * 1.08;
-      final headerHeight = (constraints.maxHeight * 0.31).clamp(132.0, 205.0);
+      final scrollHome =
+          MediaQuery.textScalerOf(context).scale(16) > 22 ||
+          constraints.maxHeight < 420;
       return ClipRect(
         key: const ValueKey('home-layout'),
         child: Stack(
@@ -34,50 +45,51 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
             ),
-            Column(
-              children: [
-                SizedBox(
-                  height: headerHeight,
-                  width: double.infinity,
-                  child: FittedBox(
-                    fit: BoxFit.scaleDown,
-                    alignment: Alignment.topCenter,
-                    child: SizedBox(
-                      width: constraints.maxWidth,
-                      child: const HomeHeader(),
+            if (scrollHome)
+              ListView(
+                key: const PageStorageKey('home-scroll'),
+                children: [
+                  HomeHeader(settings: settings),
+                  const SizedBox(height: 12),
+                  for (var i = 0; i < skills.length; i++)
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(22, 0, 22, 16),
+                      child: _FriendCard(
+                        key: ValueKey('home-${skills[i].id.name}'),
+                        skill: skills[i],
+                        index: i,
+                        onPressed: () => onOpenSkill(skills[i]),
+                      ),
                     ),
-                  ),
-                ),
-                const SizedBox(height: 12),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(22, 0, 22, 16),
-                    child: Column(
-                      children: [
-                        for (
-                          var i = 0;
-                          i < PreviewCatalog.skills.length;
-                          i++
-                        ) ...[
-                          if (i > 0) const SizedBox(height: 10),
-                          Expanded(
-                            child: _FriendCard(
-                              key: ValueKey(
-                                'home-${PreviewCatalog.skills[i].id.name}',
+                ],
+              )
+            else
+              Column(
+                children: [
+                  HomeHeader(settings: settings),
+                  const SizedBox(height: 12),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(22, 0, 22, 16),
+                      child: Column(
+                        children: [
+                          for (var i = 0; i < skills.length; i++) ...[
+                            if (i > 0) const SizedBox(height: 10),
+                            Expanded(
+                              child: _FriendCard(
+                                key: ValueKey('home-${skills[i].id.name}'),
+                                skill: skills[i],
+                                index: i,
+                                onPressed: () => onOpenSkill(skills[i]),
                               ),
-                              skill: PreviewCatalog.skills[i],
-                              index: i,
-                              onPressed: () =>
-                                  onOpenSkill(PreviewCatalog.skills[i]),
                             ),
-                          ),
+                          ],
                         ],
-                      ],
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
+                ],
+              ),
           ],
         ),
       );
@@ -98,11 +110,11 @@ class _FriendCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const names = [
-      'Chuột Nghe Lén',
-      'Vẹt Lắm Mồm',
-      'Cú Mọt Sách',
-      'Mèo Viết Bậy',
+    final names = [
+      context.l10n.listeningFriend,
+      context.l10n.speakingFriend,
+      context.l10n.readingFriend,
+      context.l10n.writingFriend,
     ];
     const animals = ['🐭', '🦜', '🦉', '🐱'];
     const colors = [
@@ -163,7 +175,9 @@ class _FriendCard extends StatelessWidget {
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Text(
-                            '${PreviewCatalog.gamesFor(skill.id).length} trò chơi · Sắp có',
+                            context.l10n.gameCountSoon(
+                              PreviewCatalog.gamesFor(skill.id).length,
+                            ),
                             style: const TextStyle(
                               color: AppColors.surface,
                               fontSize: 10,

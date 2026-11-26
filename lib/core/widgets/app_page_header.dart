@@ -1,3 +1,5 @@
+import '../../l10n/l10n.dart';
+
 import 'package:material_ui/material_ui.dart';
 
 import '../theme/app_colors.dart';
@@ -20,7 +22,7 @@ class AppPageHeader extends StatelessWidget {
       if (onBack != null) ...[
         IconButton.outlined(
           onPressed: onBack,
-          tooltip: 'Quay lại',
+          tooltip: context.l10n.back,
           style: IconButton.styleFrom(
             side: const BorderSide(color: AppColors.ink, width: 2),
             minimumSize: const Size(48, 48),

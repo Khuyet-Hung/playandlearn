@@ -21,7 +21,10 @@ class _AppShellState extends State<AppShell>
   int _selectedIndex = 0;
   late final _fade = AnimationController(vsync: this, value: 1);
   late final List<Widget> _screens = [
-    HomeScreen(onOpenSkill: (skill) => _routes.openSkill(context, skill)),
+    HomeScreen(
+      settings: widget.settings,
+      onOpenSkill: (skill) => _routes.openSkill(context, skill),
+    ),
     SkillsScreen(onOpenSkill: (skill) => _routes.openSkill(context, skill)),
     ProfileScreen(
       onOpenSettings: () => _routes.openSettings(context, widget.settings),

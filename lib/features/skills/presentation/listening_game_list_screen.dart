@@ -1,3 +1,5 @@
+import '../../../l10n/l10n.dart';
+
 import 'package:material_ui/material_ui.dart';
 
 import '../../../core/theme/app_colors.dart';
@@ -13,7 +15,9 @@ class ListeningGameListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final games = PreviewCatalog.gamesFor(skill.id);
+    final skill = PreviewCatalog.skillsFor(context.l10n)
+        .firstWhere((item) => item.id == this.skill.id);
+    final games = PreviewCatalog.gamesFor(skill.id, context.l10n);
     return Scaffold(
       body: SafeArea(
         child: Center(
@@ -26,13 +30,13 @@ class ListeningGameListScreen extends StatelessWidget {
                 ListeningHeader(title: skill.title),
                 const SizedBox(height: 14),
                 Text(
-                  'Chuột Nghe Lén',
+                  context.l10n.listeningFriend,
                   style: Theme.of(context).textTheme.headlineLarge
                       ?.copyWith(fontSize: 32, letterSpacing: -1),
                 ),
                 const SizedBox(height: 5),
                 Text(
-                  '${games.length} trò chơi · Nghe tiếng Anh thật vui',
+                  context.l10n.listeningGameCount(games.length),
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     color: AppColors.muted,
                     fontWeight: FontWeight.w600,
@@ -47,23 +51,23 @@ class ListeningGameListScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                 ],
-                const Padding(
-                  padding: EdgeInsets.only(top: 6),
+                Padding(
+                  padding: const EdgeInsets.only(top: 6),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      ExcludeSemantics(
+                      const ExcludeSemantics(
                         child: Icon(
                           Icons.headphones_rounded,
                           color: AppColors.berry,
                           size: 30,
                         ),
                       ),
-                      SizedBox(width: 10),
+                      const SizedBox(width: 10),
                       Flexible(
                         child: Text(
-                          'Đeo tai nghe để chơi vui hơn!',
-                          style: TextStyle(
+                          context.l10n.headphonesHint,
+                          style: const TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w800,
                           ),

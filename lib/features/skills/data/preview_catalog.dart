@@ -1,3 +1,6 @@
+import '../../../l10n/app_localizations.dart';
+import '../../../l10n/l10n.dart';
+
 import 'package:material_ui/material_ui.dart';
 
 import '../../../core/theme/app_colors.dart';
@@ -5,94 +8,113 @@ import '../domain/game_preview.dart';
 import '../domain/skill.dart';
 
 abstract final class PreviewCatalog {
-  static const skills = <Skill>[
+  static List<Skill> get skills => skillsFor(vietnameseStrings);
+
+  static List<Skill> skillsFor(AppLocalizations strings) => <Skill>[
     Skill(
       id: SkillId.listening,
-      title: 'Luyện nghe',
+      title: strings.listeningTitle,
       englishTitle: 'Listening',
-      description: 'Bắt nhịp âm thanh, hiểu từng câu chuyện.',
+      description: strings.listeningDescription,
       icon: Icons.headphones_rounded,
       color: AppColors.blue,
     ),
     Skill(
       id: SkillId.speaking,
-      title: 'Luyện nói',
+      title: strings.speakingTitle,
       englishTitle: 'Speaking',
-      description: 'Cất tiếng tự tin, mở thêm cuộc trò chuyện.',
+      description: strings.speakingDescription,
       icon: Icons.mic_none_rounded,
       color: AppColors.coral,
     ),
     Skill(
       id: SkillId.reading,
-      title: 'Luyện đọc',
+      title: strings.readingTitle,
       englishTitle: 'Reading',
-      description: 'Khám phá ý nghĩa đằng sau từng dòng chữ.',
+      description: strings.readingDescription,
       icon: Icons.auto_stories_outlined,
       color: AppColors.mint,
     ),
     Skill(
       id: SkillId.writing,
-      title: 'Luyện viết',
+      title: strings.writingTitle,
       englishTitle: 'Writing',
-      description: 'Gom ý tưởng, viết nên điều bạn muốn nói.',
+      description: strings.writingDescription,
       icon: Icons.edit_outlined,
       color: AppColors.lavender,
     ),
   ];
 
-  static const _games = <GamePreview>[
+  static List<GamePreview> _games(AppLocalizations strings) => <GamePreview>[
     GamePreview(
       id: 'listening-order',
       skillId: SkillId.listening,
-      title: 'Giao đúng đơn',
-      description: 'Nghe khách gọi món, chọn đúng đơn.',
+      title: strings.orderTitle,
+      description: strings.orderDescription,
+      difficulty: strings.easy,
+      duration: strings.shortDuration,
     ),
     GamePreview(
       id: 'listening-detective',
       skillId: SkillId.listening,
-      title: 'Thám tử âm thanh',
-      description: 'Nghe hội thoại, tìm ra manh mối.',
-      difficulty: 'Vừa',
-      duration: '5–7 phút',
+      title: strings.detectiveTitle,
+      description: strings.detectiveDescription,
+      difficulty: strings.medium,
+      duration: strings.longDuration,
     ),
     GamePreview(
       id: 'speaking-travel',
       skillId: SkillId.speaking,
-      title: 'Chuyến đi đầu tiên',
-      description: 'Làm quen với những tình huống giao tiếp khi du lịch.',
+      title: strings.travelTitle,
+      description: strings.travelDescription,
+      difficulty: strings.easy,
+      duration: strings.shortDuration,
     ),
     GamePreview(
       id: 'speaking-story',
       skillId: SkillId.speaking,
-      title: 'Kể chuyện tiếp sức',
-      description: 'Dùng lời nói để tiếp nối một câu chuyện.',
+      title: strings.storyTitle,
+      description: strings.storyDescription,
+      difficulty: strings.easy,
+      duration: strings.shortDuration,
     ),
     GamePreview(
       id: 'reading-room',
       skillId: SkillId.reading,
-      title: 'Mật mã thoát phòng',
-      description: 'Đọc manh mối và ghép các mảnh thông tin.',
+      title: strings.roomTitle,
+      description: strings.roomDescription,
+      difficulty: strings.easy,
+      duration: strings.shortDuration,
     ),
     GamePreview(
       id: 'reading-treasure',
       skillId: SkillId.reading,
-      title: 'Bản đồ kho báu',
-      description: 'Khám phá một hành trình qua những mẩu ghi chú.',
+      title: strings.treasureTitle,
+      description: strings.treasureDescription,
+      difficulty: strings.easy,
+      duration: strings.shortDuration,
     ),
     GamePreview(
       id: 'writing-robot',
       skillId: SkillId.writing,
-      title: 'Chỉ huy robot',
-      description: 'Viết chỉ dẫn để giúp người bạn máy tìm đường.',
+      title: strings.robotTitle,
+      description: strings.robotDescription,
+      difficulty: strings.easy,
+      duration: strings.shortDuration,
     ),
     GamePreview(
       id: 'writing-message',
       skillId: SkillId.writing,
-      title: 'Tin nhắn bí mật',
-      description: 'Kết nối với nhân vật qua những dòng tin nhắn.',
+      title: strings.messageTitle,
+      description: strings.messageDescription,
+      difficulty: strings.easy,
+      duration: strings.shortDuration,
     ),
   ];
 
-  static List<GamePreview> gamesFor(SkillId id) =>
-      List.unmodifiable(_games.where((game) => game.skillId == id));
+  static List<GamePreview> gamesFor(SkillId id, [AppLocalizations? strings]) =>
+      List.unmodifiable(
+        _games(strings ?? vietnameseStrings)
+            .where((game) => game.skillId == id),
+      );
 }

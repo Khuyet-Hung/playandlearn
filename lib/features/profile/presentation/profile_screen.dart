@@ -1,3 +1,5 @@
+import '../../../l10n/l10n.dart';
+
 import 'package:material_ui/material_ui.dart';
 
 import '../../../core/theme/app_colors.dart';
@@ -17,9 +19,9 @@ class ProfileScreen extends StatelessWidget {
     key: const PageStorageKey('profile-scroll'),
     padding: AppTokens.pagePadding,
     children: [
-      const AppPageHeader(
-        title: 'Góc của bạn.',
-        subtitle: 'Mỗi hành trình đều bắt đầu từ một lần thử.',
+      AppPageHeader(
+        title: context.l10n.profileHeading,
+        subtitle: context.l10n.profileSubtitle,
       ),
       const SizedBox(height: 28),
       AppCard(
@@ -47,15 +49,13 @@ class ProfileScreen extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             Text(
-              'Người chơi',
+              context.l10n.player,
               style: Theme.of(context).textTheme.headlineMedium,
             ),
             const SizedBox(height: 12),
-            const AppChip(label: 'Hồ sơ trên thiết bị'),
+            AppChip(label: context.l10n.localProfile),
             const SizedBox(height: 16),
-            const Text(
-              'Bạn đang khám phá bản xem trước. Chưa cần tài khoản để bắt đầu hành trình này.',
-            ),
+            Text(context.l10n.profilePreview),
           ],
         ),
       ),
@@ -66,34 +66,29 @@ class ProfileScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Từng bước tiến bộ',
+              context.l10n.progressHeading,
               style: Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(height: 12),
-            const AppChip(label: 'Dữ liệu minh họa'),
+            AppChip(label: context.l10n.sampleData),
             const SizedBox(height: 20),
-            const AppProgress(
-              value: 0.4,
-              label: 'Ví dụ mục tiêu tuần: 2 / 5 lượt',
-            ),
+            AppProgress(value: 0.4, label: context.l10n.sampleGoal),
             const SizedBox(height: 12),
-            const Text(
-              'Tiến độ thật sẽ xuất hiện khi các mini-game được bổ sung.',
-            ),
+            Text(context.l10n.progressNotice),
           ],
         ),
       ),
       const SizedBox(height: 26),
       AppButton(
         key: const ValueKey('open-settings'),
-        label: 'Cài đặt ứng dụng',
+        label: context.l10n.openSettings,
         icon: Icons.tune_rounded,
         color: AppColors.surface,
         onPressed: onOpenSettings,
       ),
       const SizedBox(height: 24),
       Text(
-        'PLAY & LEARN · MỖI NGÀY MỘT CHÚT',
+        context.l10n.brandTagline,
         textAlign: TextAlign.center,
         style: Theme.of(context).textTheme.labelSmall
             ?.copyWith(color: AppColors.muted, letterSpacing: 0.7),

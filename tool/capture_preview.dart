@@ -64,6 +64,39 @@ void main() {
     expect(tester.takeException(), isNull);
   });
 
+  testWidgets('capture localized home for visual inspection', (tester) async {
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
+    for (final small in [false, true]) {
+      tester.view.physicalSize = small
+          ? const Size(320, 640)
+          : const Size(390, 844);
+      tester.platformDispatcher.textScaleFactorTestValue = small ? 2 : 1;
+      await tester.pumpWidget(const SizedBox.shrink());
+      await pumpPreviewApp(tester);
+      for (final language in ['vi', 'en']) {
+        await tester.tap(find.byKey(ValueKey('language-$language')));
+        await tester.pumpAndSettle();
+        final boundary = tester.renderObject<RenderRepaintBoundary>(
+          find.byType(RepaintBoundary).first,
+        );
+        await tester.runAsync(() async {
+          final image = await boundary.toImage();
+          final bytes = await image.toByteData(format: ui.ImageByteFormat.png);
+          final file = File(
+            '.superpowers/localization/home-$language${small ? '-small' : ''}.png',
+          );
+          await file.parent.create(recursive: true);
+          await file.writeAsBytes(bytes!.buffer.asUint8List());
+          image.dispose();
+        });
+        expect(tester.takeException(), isNull);
+      }
+    }
+  });
+
   testWidgets('capture mobile preview screens for visual inspection', (
     tester,
   ) async {

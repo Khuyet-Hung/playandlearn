@@ -6,6 +6,22 @@ import 'package:play_and_learn/features/settings/data/settings_repository.dart';
 import 'package:play_and_learn/features/settings/presentation/settings_controller.dart';
 
 void main() {
+  test('language preference persists independently of motion', () async {
+    final previous = SharedPreferencesAsyncPlatform.instance;
+    addTearDown(() => SharedPreferencesAsyncPlatform.instance = previous);
+    SharedPreferencesAsyncPlatform.instance =
+        InMemorySharedPreferencesAsync.empty();
+    final first = PreferencesSettingsRepository();
+    expect(await first.readLanguageCode(), isNull);
+    await first.writeLanguageCode('en');
+    await first.writeReduceMotion(true);
+    final fresh = SettingsController(PreferencesSettingsRepository());
+    addTearDown(fresh.dispose);
+    await fresh.load();
+    expect(fresh.locale.languageCode, 'en');
+    expect(fresh.reduceMotion, isTrue);
+  });
+
   test(
     'storage initialization failure allows startup and a successful retry',
     () async {

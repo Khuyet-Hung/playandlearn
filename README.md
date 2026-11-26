@@ -139,7 +139,28 @@ chồng nhau và giữ ý định để thử lại nếu lỗi. Lỗi đọc l�
 
 Để thay storage, implement `SettingsRepository`, rồi thay adapter tại bootstrap.
 Không thay widget hoặc tạo API storage trực tiếp trong màn hình.
-Key hiện tại: `settings.reduce_motion`.
+Key hiện tại: `settings.reduce_motion`, `settings.language_code`.
+
+## Ngôn ngữ giao diện
+
+Ứng dụng hỗ trợ **Tiếng Việt** (mặc định) và **English**. Bấm cờ Việt Nam hoặc
+Vương quốc Anh ở đầu Trang chủ hoặc trong Cài đặt để đổi ngôn ngữ. Lựa chọn
+được lưu trên thiết bị; nếu lưu lỗi, app giữ ngôn ngữ trước đó và cho phép thử lại.
+
+Bản dịch nằm trong `lib/l10n/app_vi.arb` và `lib/l10n/app_en.arb`. Dùng công cụ
+chính thức `flutter gen-l10n`, `flutter_localizations` và `intl`; không sửa trực
+tiếp các file `app_localizations*.dart` được sinh tự động. Khi thêm nội dung,
+thêm cùng key vào hai file ARB rồi chạy:
+
+```powershell
+.\scripts\flutter.cmd gen-l10n
+```
+
+Widget đọc bản dịch qua `context.l10n` (import `lib/l10n/l10n.dart`). Catalog nhận
+`AppLocalizations` để giữ ID kỹ năng và trò chơi ổn định khi đổi ngôn ngữ.
+Với Flutter 3.50 và `material_ui`, danh sách delegate dùng
+`AppLocalizations.delegate` cùng `GlobalMaterialLocalizations.delegates` của
+`material_ui`, thay vì danh sách delegate cũ do `gen-l10n` tạo sẵn.
 
 ## Thêm mini-game sau này
 

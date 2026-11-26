@@ -1,12 +1,18 @@
+import '../../../settings/presentation/settings_controller.dart';
+import '../../../settings/presentation/widgets/language_selector.dart';
+
+import '../../../../l10n/l10n.dart';
+
 import 'package:material_ui/material_ui.dart';
 
 import '../../../../core/theme/app_colors.dart';
 
 /// The bird artwork is a temporary placeholder for the final mascot asset.
 class HomeHeader extends StatelessWidget {
-  const HomeHeader({super.key, this.streakDays = 0});
+  const HomeHeader({super.key, this.streakDays = 0, required this.settings});
 
   final int streakDays;
+  final SettingsController settings;
 
   @override
   Widget build(BuildContext context) => Padding(
@@ -34,10 +40,11 @@ class HomeHeader extends StatelessWidget {
                   ),
                 ),
               ),
+              LanguageSelector(controller: settings),
               Padding(
                 padding: const EdgeInsets.only(top: 12),
                 child: Semantics(
-                  label: 'Chuỗi học: $streakDays ngày',
+                  label: context.l10n.streakDays(streakDays),
                   child: ExcludeSemantics(
                     child: Container(
                       padding: const EdgeInsets.symmetric(
@@ -110,21 +117,21 @@ class HomeHeader extends StatelessWidget {
                     BoxShadow(color: AppColors.ink, offset: Offset(4, 5)),
                   ],
                 ),
-                child: const Column(
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Ê, hôm nay cậu muốn tám với ai?',
-                      style: TextStyle(
+                      context.l10n.homeGreeting,
+                      style: const TextStyle(
                         fontSize: 16,
                         height: 1.2,
                         fontWeight: FontWeight.w900,
                       ),
                     ),
-                    SizedBox(height: 5),
+                    const SizedBox(height: 5),
                     Text(
-                      'Mỗi bạn có cả đống game đang chờ.',
-                      style: TextStyle(fontSize: 11, height: 1.3),
+                      context.l10n.homeSubtitle,
+                      style: const TextStyle(fontSize: 11, height: 1.3),
                     ),
                   ],
                 ),

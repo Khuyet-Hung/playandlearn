@@ -1,3 +1,5 @@
+import '../../../../l10n/l10n.dart';
+
 import 'package:material_ui/material_ui.dart';
 
 import '../../../../core/theme/app_colors.dart';
@@ -20,14 +22,12 @@ class ListeningGameCard extends StatelessWidget {
     final color = isOrder ? AppColors.yellow : AppColors.lavender;
     return AppPressable(
       label:
-          '${game.title}. ${game.description} ${game.difficulty}. ${game.duration}. Sắp có. Xem thông tin',
+          '${game.title}. ${game.description} ${game.difficulty}. ${game.duration}. ${context.l10n.comingSoon}. ${context.l10n.viewInformation}',
       padding: EdgeInsets.zero,
       onPressed: () {
         ScaffoldMessenger.of(context)
           ..hideCurrentSnackBar()
-          ..showSnackBar(
-            const SnackBar(content: Text('Mini-game sẽ được bổ sung sau.')),
-          );
+          ..showSnackBar(SnackBar(content: Text(context.l10n.gameUnavailable)));
       },
       child: ClipRRect(
         borderRadius: BorderRadius.circular(
@@ -40,7 +40,7 @@ class ListeningGameCard extends StatelessWidget {
             Container(
               decoration: BoxDecoration(
                 color: color,
-                border: Border(
+                border: const Border(
                   bottom: BorderSide(
                     color: AppColors.ink,
                     width: AppTokens.borderWidth,
@@ -88,7 +88,7 @@ class ListeningGameCard extends StatelessWidget {
                     top: 12,
                     right: 12,
                     child: Text(
-                      'Sắp có',
+                      context.l10n.comingSoon,
                       style: Theme.of(context).textTheme.labelLarge,
                     ),
                   ),

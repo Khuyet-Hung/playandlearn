@@ -1,3 +1,5 @@
+import '../../../../l10n/l10n.dart';
+
 import 'package:material_ui/material_ui.dart';
 
 import '../../../../core/widgets/app_chip.dart';
@@ -11,13 +13,12 @@ class GamePreviewCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => AppPressable(
-    label: '${game.title}. ${game.description} Sắp có. Xem thông tin',
+    label:
+        '${game.title}. ${game.description} ${context.l10n.comingSoon}. ${context.l10n.viewInformation}',
     onPressed: () {
       ScaffoldMessenger.of(context)
         ..hideCurrentSnackBar()
-        ..showSnackBar(
-          const SnackBar(content: Text('Mini-game sẽ được bổ sung sau.')),
-        );
+        ..showSnackBar(SnackBar(content: Text(context.l10n.gameUnavailable)));
     },
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -28,7 +29,7 @@ class GamePreviewCard extends StatelessWidget {
           crossAxisAlignment: WrapCrossAlignment.center,
           children: [
             Text('0$number', style: Theme.of(context).textTheme.headlineMedium),
-            const AppChip(label: 'Sắp có'),
+            AppChip(label: context.l10n.comingSoon),
           ],
         ),
         const SizedBox(height: 18),

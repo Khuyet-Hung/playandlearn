@@ -1,3 +1,5 @@
+import '../../../../l10n/l10n.dart';
+
 import 'package:material_ui/material_ui.dart';
 
 import '../../../../core/theme/app_colors.dart';
@@ -22,7 +24,7 @@ class ListeningHeader extends StatelessWidget {
               ],
             ),
             child: IconButton(
-              tooltip: 'Quay lại',
+              tooltip: context.l10n.back,
               onPressed: () => Navigator.of(context).pop(),
               icon: const Icon(Icons.arrow_back_rounded, size: 26),
             ),
@@ -53,7 +55,7 @@ class ListeningHeader extends StatelessWidget {
           ),
           const SizedBox(width: 16),
           Semantics(
-            label: 'Chuỗi học: 0 ngày',
+            label: context.l10n.streakDays(0),
             child: ExcludeSemantics(
               child: Container(
                 padding: const EdgeInsets.symmetric(
@@ -125,7 +127,7 @@ class ListeningHeader extends StatelessWidget {
             ),
           );
           final bubble = CustomPaint(
-            painter: const _SpeechTail(),
+            painter: _SpeechTail(),
             child: Container(
               padding: const EdgeInsets.all(14),
               decoration: BoxDecoration(
@@ -136,21 +138,21 @@ class ListeningHeader extends StatelessWidget {
                   BoxShadow(color: AppColors.ink, offset: Offset(3, 4)),
                 ],
               ),
-              child: const Column(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Tai thính đã sẵn sàng?',
-                    style: TextStyle(
+                    context.l10n.listeningGreeting,
+                    style: const TextStyle(
                       fontSize: 21,
                       fontWeight: FontWeight.w900,
                       height: 1.2,
                     ),
                   ),
-                  SizedBox(height: 6),
+                  const SizedBox(height: 6),
                   Text(
-                    'Chọn một trò, mình cùng nghe nhé!',
-                    style: TextStyle(
+                    context.l10n.listeningSubtitle,
+                    style: const TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
                       height: 1.4,
@@ -180,7 +182,7 @@ class ListeningHeader extends StatelessWidget {
 }
 
 class _SpeechTail extends CustomPainter {
-  const _SpeechTail();
+  _SpeechTail();
 
   @override
   void paint(Canvas canvas, Size size) {

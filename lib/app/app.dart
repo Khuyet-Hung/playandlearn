@@ -1,3 +1,5 @@
+import '../l10n/app_localizations.dart';
+
 import 'package:material_ui/material_ui.dart';
 
 import '../core/motion/motion_scope.dart';
@@ -18,6 +20,12 @@ class _PlayAndLearnAppState extends State<PlayAndLearnApp> {
     listenable: widget.dependencies.settings,
     builder: (context, _) => MaterialApp(
       title: 'Play & Learn',
+      locale: widget.dependencies.settings.locale,
+      supportedLocales: AppLocalizations.supportedLocales,
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        ...GlobalMaterialLocalizations.delegates,
+      ],
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light,
       builder: (context, child) => MotionScope(

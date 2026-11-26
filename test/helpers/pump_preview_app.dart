@@ -6,6 +6,15 @@ import 'package:play_and_learn/features/settings/data/settings_repository.dart';
 import 'package:play_and_learn/features/settings/presentation/settings_controller.dart';
 
 class TestSettingsRepository implements SettingsRepository {
+  String? languageCode;
+  @override
+  Future<String?> readLanguageCode() async => languageCode;
+  @override
+  Future<void> writeLanguageCode(String value) async {
+    if (failWrite) throw StateError("disk full");
+    languageCode = value;
+  }
+
   bool value = false;
   bool failWrite = false;
   @override

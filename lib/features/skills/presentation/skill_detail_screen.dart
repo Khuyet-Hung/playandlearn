@@ -1,3 +1,5 @@
+import '../../../l10n/l10n.dart';
+
 import 'package:material_ui/material_ui.dart';
 
 import '../../../core/theme/app_tokens.dart';
@@ -15,10 +17,12 @@ class SkillDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final skill = PreviewCatalog.skillsFor(context.l10n)
+        .firstWhere((item) => item.id == this.skill.id);
     if (skill.id == SkillId.listening) {
       return ListeningGameListScreen(skill: skill);
     }
-    final games = PreviewCatalog.gamesFor(skill.id);
+    final games = PreviewCatalog.gamesFor(skill.id, context.l10n);
     return Scaffold(
       body: SafeArea(
         child: Center(
@@ -45,19 +49,17 @@ class SkillDetailScreen extends StatelessWidget {
                         style: Theme.of(context).textTheme.titleLarge,
                       ),
                       const SizedBox(height: 18),
-                      const AppChip(label: 'Cùng chờ những trò chơi mới'),
+                      AppChip(label: context.l10n.waitForGames),
                     ],
                   ),
                 ),
                 const SizedBox(height: 30),
                 Text(
-                  'Góc mini-game',
+                  context.l10n.gameCorner,
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 const SizedBox(height: 8),
-                const Text(
-                  'Ý tưởng trò chơi trong bản xem trước. Nội dung sẽ tiếp tục được phát triển.',
-                ),
+                Text(context.l10n.gamePreviewNotice),
                 const SizedBox(height: 20),
                 for (var i = 0; i < games.length; i++) ...[
                   GamePreviewCard(

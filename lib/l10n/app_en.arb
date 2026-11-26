@@ -1,0 +1,99 @@
+{
+  "@@locale": "en",
+  "homeTab": "Home",
+  "skillsTab": "Skills",
+  "profileTab": "Profile",
+  "back": "Back",
+  "homeGreeting": "Hey, who do you want to chat with today?",
+  "homeSubtitle": "Each friend has plenty of games waiting.",
+  "listeningFriend": "Eavesdropping Mouse",
+  "speakingFriend": "Chatty Parrot",
+  "readingFriend": "Bookworm Owl",
+  "writingFriend": "Scribbling Cat",
+  "skillsHeading": "Play your\nown way.",
+  "skillsSubtitle": "Four skills. So many journeys to explore.",
+  "listeningTitle": "Listening",
+  "speakingTitle": "Speaking",
+  "readingTitle": "Reading",
+  "writingTitle": "Writing",
+  "listeningDescription": "Tune in to sounds and understand every story.",
+  "speakingDescription": "Speak with confidence and start new conversations.",
+  "readingDescription": "Discover the meaning behind every line.",
+  "writingDescription": "Gather your ideas and write what you want to say.",
+  "orderTitle": "Get the Order Right",
+  "orderDescription": "Listen to customers and pick the right order.",
+  "detectiveTitle": "Sound Detective",
+  "detectiveDescription": "Listen to conversations and uncover the clues.",
+  "travelTitle": "Your First Trip",
+  "travelDescription": "Practise conversations for your travels.",
+  "storyTitle": "Story Relay",
+  "storyDescription": "Keep a story going with your own words.",
+  "roomTitle": "Escape Room Code",
+  "roomDescription": "Read the clues and piece the information together.",
+  "treasureTitle": "Treasure Map",
+  "treasureDescription": "Follow a trail of notes on an adventure.",
+  "robotTitle": "Robot Commander",
+  "robotDescription": "Write instructions to help your robot friend find the way.",
+  "messageTitle": "Secret Messages",
+  "messageDescription": "Connect with characters through messages.",
+  "easy": "Easy",
+  "medium": "Medium",
+  "shortDuration": "3–5 min",
+  "longDuration": "5–7 min",
+  "comingSoon": "Coming soon",
+  "viewInformation": "View information",
+  "gameUnavailable": "Mini-games will be added later.",
+  "waitForGames": "New games are on the way",
+  "gameCorner": "Mini-game corner",
+  "gamePreviewNotice": "Game ideas in this preview. More content is on the way.",
+  "headphonesHint": "Put on headphones for more fun!",
+  "listeningGreeting": "Are your ears ready?",
+  "listeningSubtitle": "Pick a game and let’s listen together!",
+  "profileHeading": "Your corner.",
+  "profileSubtitle": "Every journey starts with giving it a try.",
+  "player": "Player",
+  "localProfile": "Profile on this device",
+  "profilePreview": "You’re exploring the preview. No account needed to start this journey.",
+  "progressHeading": "Progress, step by step",
+  "sampleData": "Sample data",
+  "sampleGoal": "Example weekly goal: 2 / 5 sessions",
+  "progressNotice": "Your progress will appear when mini-games are added.",
+  "openSettings": "App settings",
+  "brandTagline": "PLAY & LEARN · A LITTLE EVERY DAY",
+  "settingsHeading": "Make yourself\nat home.",
+  "settingsSubtitle": "Make the experience your own.",
+  "reduceMotion": "Reduce motion",
+  "reduceMotionDescription": "Reduce movement when pressing buttons and changing screens.",
+  "settingsBusy": "Saving or loading settings…",
+  "settingsBusySemantics": "Processing settings",
+  "deviceMotionNotice": "The app also respects your device’s reduced motion preference.",
+  "retry": "Retry",
+  "settingsStorageNotice": "Changes are kept on this device after saving successfully. You can explore the app offline.",
+  "settingsReadError": "Could not load settings. Please try again.",
+  "settingsWriteError": "Could not save your changes. Please try again.",
+  "language": "Language",
+  "streakDays": "Learning streak: {count, plural, =1{1 day} other{{count} days}}",
+  "@streakDays": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "gameCountSoon": "{count, plural, =1{1 game} other{{count} games}} · Coming soon",
+  "@gameCountSoon": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "listeningGameCount": "{count, plural, =1{1 game} other{{count} games}} · Have fun listening to English",
+  "@listeningGameCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
+}

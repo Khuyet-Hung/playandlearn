@@ -1,3 +1,7 @@
+import 'widgets/language_selector.dart';
+
+import '../../../l10n/l10n.dart';
+
 import 'package:material_ui/material_ui.dart';
 
 import '../../../core/theme/app_colors.dart';
@@ -23,8 +27,8 @@ class SettingsScreen extends StatelessWidget {
               padding: AppTokens.pagePadding,
               children: [
                 AppPageHeader(
-                  title: 'Thoải mái\ntheo cách bạn.',
-                  subtitle: 'Điều chỉnh trải nghiệm của riêng mình.',
+                  title: context.l10n.settingsHeading,
+                  subtitle: context.l10n.settingsSubtitle,
                   onBack: () => Navigator.of(context).pop(),
                 ),
                 const SizedBox(height: 28),
@@ -32,19 +36,31 @@ class SettingsScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      Text(
+                        context.l10n.language,
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                      const SizedBox(height: 12),
+                      LanguageSelector(controller: controller),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 20),
+                AppCard(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
                       const Icon(Icons.accessibility_new_rounded, size: 32),
                       const SizedBox(height: 20),
                       Text(
-                        'Giảm chuyển động',
+                        context.l10n.reduceMotion,
                         style: Theme.of(context).textTheme.titleLarge,
                       ),
                       const SizedBox(height: 10),
-                      const Text(
-                        'Giảm hiệu ứng dịch chuyển khi nhấn nút và chuyển màn hình.',
-                      ),
+                      Text(context.l10n.reduceMotionDescription),
                       const SizedBox(height: 12),
                       Semantics(
-                        label: 'Giảm chuyển động',
+                        label: context.l10n.reduceMotion,
                         child: Switch(
                           value: controller.reduceMotion,
                           onChanged: controller.isSaving || controller.isLoading
@@ -57,13 +73,13 @@ class SettingsScreen extends StatelessWidget {
                         ),
                       ),
                       if (controller.isSaving || controller.isLoading)
-                        const Text(
-                          'Đang lưu hoặc đọc cài đặt…',
-                          semanticsLabel: 'Đang xử lý cài đặt',
+                        Text(
+                          context.l10n.settingsBusy,
+                          semanticsLabel: context.l10n.settingsBusySemantics,
                         ),
                       const SizedBox(height: 8),
                       Text(
-                        'Ứng dụng cũng luôn tôn trọng tùy chọn giảm chuyển động của thiết bị.',
+                        context.l10n.deviceMotionNotice,
                         style: Theme.of(context).textTheme.bodySmall
                             ?.copyWith(color: AppColors.muted),
                       ),
@@ -83,7 +99,7 @@ class SettingsScreen extends StatelessWidget {
                         ),
                         const SizedBox(height: 16),
                         AppButton(
-                          label: 'Thử lại',
+                          label: context.l10n.retry,
                           color: AppColors.surface,
                           onPressed: controller.isSaving || controller.isLoading
                               ? null
@@ -94,9 +110,7 @@ class SettingsScreen extends StatelessWidget {
                   ),
                 ],
                 const SizedBox(height: 24),
-                const Text(
-                  'Thay đổi được lưu trên thiết bị sau khi lưu thành công. Bạn có thể dùng khung ứng dụng khi không có mạng.',
-                ),
+                Text(context.l10n.settingsStorageNotice),
               ],
             ),
           ),

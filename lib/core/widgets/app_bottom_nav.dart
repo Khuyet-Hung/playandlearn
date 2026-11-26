@@ -1,3 +1,5 @@
+import '../../l10n/l10n.dart';
+
 import 'package:material_ui/material_ui.dart';
 
 import '../theme/app_colors.dart';
@@ -75,7 +77,11 @@ class AppBottomNav extends StatelessWidget {
                                 ),
                                 const SizedBox(height: 4),
                                 Text(
-                                  ['Trang chủ', 'Kỹ năng', 'Hồ sơ'][i],
+                                  [
+                                    context.l10n.homeTab,
+                                    context.l10n.skillsTab,
+                                    context.l10n.profileTab,
+                                  ][i],
                                   textAlign: TextAlign.center,
                                   style: Theme.of(context).textTheme.labelSmall
                                       ?.copyWith(
