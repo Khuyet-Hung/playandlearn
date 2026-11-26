@@ -14,7 +14,7 @@ void main() {
       await tester.tap(skill, warnIfMissed: false);
       await tester.pumpAndSettle();
       expect(find.byType(SkillDetailScreen), findsOneWidget);
-      expect(find.text('Listening'), findsOneWidget);
+      expect(find.text('Tai thính đã sẵn sàng?'), findsOneWidget);
       await tester.binding.handlePopRoute();
       await tester.pumpAndSettle();
       expect(find.byType(SkillDetailScreen), findsNothing);

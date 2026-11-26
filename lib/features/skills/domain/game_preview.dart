@@ -9,9 +9,13 @@ class GamePreview {
     required this.skillId,
     required this.title,
     required this.description,
+    this.difficulty = 'Dễ',
+    this.duration = '3–5 phút',
   });
   final String id;
   final SkillId skillId;
   final String title;
   final String description;
+  final String difficulty;
+  final String duration;
 }

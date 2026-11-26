@@ -34,6 +34,36 @@ void main() {
       );
     await icons.load();
   });
+  testWidgets('capture listening game list for visual inspection', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(390, 844);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    await pumpPreviewApp(tester);
+    await tester.tap(find.byKey(const ValueKey('home-listening')));
+    await tester.pumpAndSettle();
+    await tester.runAsync(() async {
+      await precacheImage(
+        const AssetImage('assets/characters/listening-mouse.png'),
+        tester.element(find.byKey(const ValueKey('listening-mascot'))),
+      );
+    });
+    await tester.pumpAndSettle();
+    final boundary = tester.renderObject<RenderRepaintBoundary>(
+      find.byType(RepaintBoundary).first,
+    );
+    await tester.runAsync(() async {
+      final image = await boundary.toImage(pixelRatio: 2);
+      final bytes = await image.toByteData(format: ui.ImageByteFormat.png);
+      await File('docs/preview/listening-game-list.png')
+          .writeAsBytes(bytes!.buffer.asUint8List());
+      image.dispose();
+    });
+    expect(tester.takeException(), isNull);
+  });
+
   testWidgets('capture mobile preview screens for visual inspection', (
     tester,
   ) async {

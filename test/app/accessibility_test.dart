@@ -39,10 +39,7 @@ void main() {
       final semantics = tester.ensureSemantics();
       try {
         final node = tester.getSemantics(find.byType(GamePreviewCard));
-        expect(
-          node.label,
-          contains('Lắng nghe và khám phá yêu cầu của vị khách.'),
-        );
+        expect(node.label, contains('Nghe khách gọi món, chọn đúng đơn.'));
         expect(node.label.toLowerCase(), contains('sắp có'));
         await tester.tap(find.byType(GamePreviewCard));
         await tester.pumpAndSettle();

@@ -7,6 +7,7 @@ import '../../../core/widgets/app_page_header.dart';
 import '../data/preview_catalog.dart';
 import '../domain/skill.dart';
 import 'widgets/game_preview_card.dart';
+import 'listening_game_list_screen.dart';
 
 class SkillDetailScreen extends StatelessWidget {
   const SkillDetailScreen({super.key, required this.skill});
@@ -14,6 +15,9 @@ class SkillDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (skill.id == SkillId.listening) {
+      return ListeningGameListScreen(skill: skill);
+    }
     final games = PreviewCatalog.gamesFor(skill.id);
     return Scaffold(
       body: SafeArea(

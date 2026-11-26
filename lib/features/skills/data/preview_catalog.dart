@@ -45,13 +45,15 @@ abstract final class PreviewCatalog {
       id: 'listening-order',
       skillId: SkillId.listening,
       title: 'Giao đúng đơn',
-      description: 'Lắng nghe và khám phá yêu cầu của vị khách.',
+      description: 'Nghe khách gọi món, chọn đúng đơn.',
     ),
     GamePreview(
       id: 'listening-detective',
       skillId: SkillId.listening,
       title: 'Thám tử âm thanh',
-      description: 'Tìm manh mối ẩn trong những cuộc hội thoại.',
+      description: 'Nghe hội thoại, tìm ra manh mối.',
+      difficulty: 'Vừa',
+      duration: '5–7 phút',
     ),
     GamePreview(
       id: 'speaking-travel',
