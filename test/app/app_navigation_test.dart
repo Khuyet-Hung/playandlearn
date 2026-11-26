@@ -10,7 +10,6 @@ void main() {
     (tester) async {
       await pumpPreviewApp(tester);
       final skill = find.byKey(const ValueKey('home-listening'));
-      await reveal(tester, skill);
       await tester.tap(skill);
       await tester.tap(skill, warnIfMissed: false);
       await tester.pumpAndSettle();
@@ -19,19 +18,17 @@ void main() {
       await tester.binding.handlePopRoute();
       await tester.pumpAndSettle();
       expect(find.byType(SkillDetailScreen), findsNothing);
-      expect(find.byKey(const PageStorageKey('home-scroll')), findsOneWidget);
+      expect(find.byKey(const ValueKey('home-layout')), findsOneWidget);
     },
   );
 
   testWidgets(
-    'explore selects skills and coming-soon game explains its status',
+    'skills tab opens catalog and coming-soon game explains its status',
     (tester) async {
       await pumpPreviewApp(tester);
-      await reveal(tester, find.byKey(const ValueKey('explore-skills')));
-      await tester.tap(find.byKey(const ValueKey('explore-skills')));
+      await tester.tap(find.byKey(const ValueKey('tab-1')));
       await tester.pumpAndSettle();
       final skill = find.byKey(const ValueKey('catalog-listening'));
-      await reveal(tester, skill);
       await tester.tap(skill);
       await tester.pumpAndSettle();
       final game = find.byKey(const ValueKey('game-listening-order'));
@@ -43,31 +40,56 @@ void main() {
     },
   );
 
-  testWidgets('switching tabs preserves home scroll position', (tester) async {
-    await pumpPreviewApp(tester);
-    final scroll = find.byKey(const PageStorageKey('home-scroll'));
-    await tester.drag(scroll, const Offset(0, -260));
-    await tester.pumpAndSettle();
-    final before = tester
-        .state<ScrollableState>(
-          find.descendant(of: scroll, matching: find.byType(Scrollable)).first,
-        )
-        .position
-        .pixels;
-    expect(before, greaterThan(0));
-    await tester.tap(find.byKey(const ValueKey('tab-1')));
-    await tester.pumpAndSettle();
-    await tester.tap(find.byKey(const ValueKey('tab-0')));
-    await tester.pumpAndSettle();
-    final after = tester
-        .state<ScrollableState>(
-          find.descendant(of: scroll, matching: find.byType(Scrollable)).first,
-        )
-        .position
-        .pixels;
-    expect(after, before);
-  });
-
+  for (final size in [
+    const Size(334, 720),
+    const Size(320, 640),
+    const Size(407, 820),
+  ]) {
+    testWidgets('home fits $size without scrolling and keeps cards visible', (
+      tester,
+    ) async {
+      tester.view.physicalSize = size;
+      tester.view.devicePixelRatio = 1;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+      await pumpPreviewApp(tester);
+      final home = find.byKey(const ValueKey('home-layout'));
+      expect(
+        find.descendant(of: home, matching: find.byType(Scrollable)),
+        findsNothing,
+      );
+      expect(find.text('CHỌN BẠN HỌC'), findsNothing);
+      expect(find.byKey(const ValueKey('explore-skills')), findsNothing);
+      final cards = ['listening', 'speaking', 'reading', 'writing'];
+      final before = <Rect>[];
+      for (final id in cards) {
+        final card = find.byKey(ValueKey('home-$id'));
+        final rect = tester.getRect(card);
+        expect(rect.top, greaterThanOrEqualTo(0));
+        expect(
+          rect.bottom,
+          lessThanOrEqualTo(
+            tester.getTopLeft(find.byKey(const ValueKey('tab-0'))).dy,
+          ),
+        );
+        expect(card.hitTestable(), findsOneWidget);
+        before.add(rect);
+      }
+      await tester.drag(home, const Offset(0, -200));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const ValueKey('tab-1')));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const ValueKey('tab-0')));
+      await tester.pumpAndSettle();
+      for (var i = 0; i < cards.length; i++) {
+        expect(
+          tester.getRect(find.byKey(ValueKey('home-${cards[i]}'))),
+          before[i],
+        );
+      }
+      expect(tester.takeException(), isNull);
+    });
+  }
   testWidgets(
     'failed settings save is visible and retry saves the requested value',
     (tester) async {

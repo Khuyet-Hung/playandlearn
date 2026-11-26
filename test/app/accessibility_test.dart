@@ -12,9 +12,7 @@ void main() {
     tester,
   ) async {
     await pumpPreviewApp(tester);
-    final explore = find.byKey(const ValueKey('explore-skills'));
-    await reveal(tester, explore);
-    final buttonContext = tester.element(find.text('Khám phá kỹ năng'));
+    final buttonContext = tester.element(find.text('Chuột Nghe Lén'));
     final focus = Focus.of(buttonContext);
     focus.requestFocus();
     await tester.pump();
